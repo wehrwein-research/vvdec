@@ -50,6 +50,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "NALread.h"
 #include "HLSyntaxReader.h"
 
+#include "vvdec/vvdec.h"
+
 #include "CommonLib/ParameterSetManager.h"
 
 #include <unordered_set>
@@ -90,6 +92,8 @@ private:
   uint32_t m_uiSliceSegmentIdx    = 0;
 
   int m_nonVCLbits                = 0;
+
+  vvdecFrame* m_externalFrame            = nullptr;
 
   Picture* m_pcParsePic           = nullptr;
   Slice*   m_apcSlicePilot        = nullptr;

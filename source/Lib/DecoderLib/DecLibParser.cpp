@@ -1377,8 +1377,15 @@ void DecLibParser::prepareUnavailablePicture( bool isLost, const PPS* pps, int i
     return;
   }
 #endif
-
-  cFillPic->fillGrey( m_parameterSetManager.getFirstSPS() );
+  // Is there an external frame?
+  // TODO: Probably good to check if this is an IFrame too
+  if ( m_externalFrame ) {
+    // If there is we should use it to fill the missing frame
+    cFillPic->fillFromExternalFrame( m_parameterSetManager.getFirstSPS(), m_externalFrame );
+    cFillPic->neededForOutput = true;
+  } else {
+    cFillPic->fillGrey( m_parameterSetManager.getFirstSPS() );
+  }
 
   if( m_pocRandomAccess == MAX_INT )
   {
