@@ -177,6 +177,7 @@ public:
   void resetPictureUnitNals     ()                      { m_pictureUnitNals.clear(); }
 
   const ParameterSetManager& getParameterSetManager() const { return m_parameterSetManager; }
+  void injectExternalFrame    ( vvdecFrame* );
 
 private:
   bool xDecodeSliceHead( InputNALUnit& nalu );

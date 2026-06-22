@@ -1837,4 +1837,8 @@ void DecLibParser::waitForPicsToFinishParsing( const std::vector<Picture*>& refP
   }
 }
 
+void DecLibParser::injectExternalFrame( vvdecFrame* externalFrame) {
+  m_externalFrame = externalFrame;
+}
+
 }   // namespace vvdec

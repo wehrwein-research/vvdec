@@ -54,6 +54,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "CommonLib/Picture.h"
 
 #include "Utilities/ThreadPool.h"
+#include "vvdec/vvdec.h"
 
 namespace vvdec
 {
@@ -108,6 +109,7 @@ public:
   void     resetPictureSeiNalus();
   void     checkAPSInPictureUnit();
   void     resetPictureUnitNals() { m_pictureUnitNals.clear(); }
+  void     injectExternalFrame( vvdecFrame* );
 
 
   ThreadPool& getThreadPool() { return *m_decodeThreadPool; }

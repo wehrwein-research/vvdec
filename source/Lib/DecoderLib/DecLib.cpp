@@ -179,6 +179,10 @@ void DecLib::destroy()
   m_picListManager.deleteBuffers();
 }
 
+void DecLib::injectExternalFrame( vvdecFrame* frame ) {
+  m_decLibParser.injectExternalFrame(frame);
+}
+
 Picture* DecLib::decode( InputNALUnit& nalu )
 {
   PROFILER_SCOPE_AND_STAGE( 1, g_timeProfiler, P_NALU_SLICE_PIC_HL );
