@@ -584,6 +584,8 @@ VVDEC_DECL void vvdec_params_free(vvdecParams *params);
 */
 VVDEC_DECL const char *vvdec_get_version(void);
 
+VVDEC_DECL void vvdec_inject_frame( vvdecDecoder* , vvdecFrame* );
+
 /* vvdec_decoder_open
   This method initializes the decoder instance.
   This method is used to initially set up the decoder with the assigned decoder

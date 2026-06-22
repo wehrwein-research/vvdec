@@ -145,6 +145,8 @@ public:
 
   void setLoggingCallback( vvdecLoggingCallback callback );
 
+  void injectExternalFrame( vvdecFrame* );
+
   int decode( vvdecAccessUnit& accessUnit, vvdecFrame** ppframe );
 
   int flush( vvdecFrame** ppcFrame );

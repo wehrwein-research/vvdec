@@ -258,6 +258,10 @@ void VVDecImpl::setLoggingCallback( vvdecLoggingCallback callback )
   g_msgFnc      = callback;
 }
 
+void VVDecImpl::injectExternalFrame( vvdecFrame* frame ) {
+  m_cDecLib->injectExternalFrame(frame);
+}
+
 int VVDecImpl::decode( vvdecAccessUnit& rcAccessUnit, vvdecFrame** ppcFrame )
 {
   if( !m_bInitialized )      { return VVDEC_ERR_INITIALIZE; }

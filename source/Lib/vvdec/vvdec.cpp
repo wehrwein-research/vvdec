@@ -183,6 +183,14 @@ VVDEC_DECL void vvdec_accessUnit_free_payload(vvdecAccessUnit *accessUnit) {
   }
 }
 
+VVDEC_DECL void vvdec_inject_frame( vvdecDecoder* dec, vvdecFrame* frame) {
+  auto d = (vvdec::VVDecImpl *)dec;
+  if (!d) {
+    return;
+  }
+  d->injectExternalFrame(frame);
+}
+
 VVDEC_DECL const char *vvdec_get_version() { return VVDEC_VERSION; }
 
 static int paramCheck(vvdecParams *params) {
