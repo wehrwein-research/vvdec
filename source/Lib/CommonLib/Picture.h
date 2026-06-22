@@ -57,6 +57,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "SEI_internal.h"
 
 #include "vvdec/sei.h"
+#include "vvdec/vvdec.h"
 
 namespace vvdec
 {
@@ -275,6 +276,7 @@ public:
   void         waitForAllTasks();
   void         ensureUsableAsRef();
   void         fillGrey( const SPS* sps );
+  void         fillFromExternalFrame( const SPS*, vvdecFrame* );
 
 #if TRACE_ENABLE_ITT
   __itt_domain* m_itt_decLibInst;

@@ -46,6 +46,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 #include "Picture.h"
 #include "ChromaFormat.h"
+#include "vvdec/vvdec.h"
 
 // ---------------------------------------------------------------------------
 // picture methods
@@ -375,6 +376,18 @@ void Picture::fillGrey( const SPS* sps )
   getRecoBuf().Y().fill( yFill );
   getRecoBuf().Cb().fill( cFill );
   getRecoBuf().Cr().fill( cFill );
+
+  progress = Picture::reconstructed;
+  reconDone.unlock();
+}
+
+void Picture::fillFromExternalFrame( const SPS* sps, vvdecFrame* frame) {
+  vvdecPlane y = frame->planes[0];
+  vvdecPlane cb = frame->planes[1];
+  vvdecPlane cr = frame->planes[2];
+  memcpy(getRecoBuf().Y().buf, y.ptr, y.width * y.height);
+  memcpy(getRecoBuf().Cb().buf, cb.ptr, cb.width * cb.height);
+  memcpy(getRecoBuf().Cr().buf, cr.ptr, cr.width * cr.height);
 
   progress = Picture::reconstructed;
   reconDone.unlock();
