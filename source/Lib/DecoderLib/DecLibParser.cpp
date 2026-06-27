@@ -1383,6 +1383,8 @@ void DecLibParser::prepareUnavailablePicture( bool isLost, const PPS* pps, int i
     // If there is we should use it to fill the missing frame
     cFillPic->fillFromExternalFrame( m_parameterSetManager.getFirstSPS(), m_externalFrame );
     cFillPic->neededForOutput = true;
+    cFillPic->progress = Picture::finished;
+    m_externalFrame = nullptr;
   } else {
     cFillPic->fillGrey( m_parameterSetManager.getFirstSPS() );
   }

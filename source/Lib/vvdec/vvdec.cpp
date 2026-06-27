@@ -62,6 +62,7 @@ VVDEC_DECL vvdecData *vvdec_data_default(int MaxNaluSize) {
   vvdecParams *params = (vvdecParams *)malloc(sizeof(vvdecParams));
   vvdec_params_default(params);
   params->logLevel = VVDEC_INFO;
+  params->errHandlingFlags = VVDEC_ERR_HANDLING_TRY_CONTINUE;
   vvdecDecoder *decoder = vvdec_decoder_open(params);
 
   vvdecAccessUnit *au = vvdec_accessUnit_alloc();

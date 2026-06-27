@@ -382,12 +382,20 @@ void Picture::fillGrey( const SPS* sps )
 }
 
 void Picture::fillFromExternalFrame( const SPS* sps, vvdecFrame* frame) {
-  vvdecPlane y = frame->planes[0];
-  vvdecPlane cb = frame->planes[1];
-  vvdecPlane cr = frame->planes[2];
-  memcpy(getRecoBuf().Y().buf, y.ptr, y.width * y.height);
-  memcpy(getRecoBuf().Cb().buf, cb.ptr, cb.width * cb.height);
-  memcpy(getRecoBuf().Cr().buf, cr.ptr, cr.width * cr.height);
+  auto copyPlane = []( PelBuf dst, const vvdecPlane& src ) {
+    CHECK( (int)src.width != dst.width || (int)src.height != dst.height,
+           "external frame plane dimensions do not match picture buffer" );
+
+    const Pel* s = reinterpret_cast<const Pel*>( src.ptr );
+    uint32_t srcStride = src.stride / sizeof(Pel);
+
+    for( uint32_t row = 0; row < (uint32_t)src.height; row++ ) {
+      memcpy( dst.buf + row * dst.stride, s + row * srcStride, src.width * sizeof(Pel) );
+    }
+  };
+  copyPlane( getRecoBuf().Y(), frame->planes[0] );
+  copyPlane( getRecoBuf().Cb(), frame->planes[1] );
+  copyPlane( getRecoBuf().Cr(), frame->planes[2] );
 
   progress = Picture::reconstructed;
   reconDone.unlock();
